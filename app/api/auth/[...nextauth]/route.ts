@@ -14,7 +14,7 @@ export const authOptions = {
           throw new Error("Invalid credentials");
         }
 
-        const backendUrl = "https://smart-waste-backend-l97b.onrender.com";
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
 
         const res = await fetch(`${backendUrl}/api/auth/login`, {
           method: "POST",
