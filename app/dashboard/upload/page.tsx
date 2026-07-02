@@ -121,6 +121,7 @@ export default function UploadReportPage() {
               className="hidden" 
               ref={fileInputRef} 
               accept="image/*"
+              capture="environment"
               onChange={handleImageChange}
             />
           </div>
