@@ -43,7 +43,7 @@ export default function RegisterPage() {
   async function onSubmit(values: z.infer<typeof registerSchema>) {
     try {
       setIsLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5000'}/api/auth/register`, {
+      const res = await fetch("https://smart-waste-backend-l97b.onrender.com/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
