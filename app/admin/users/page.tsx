@@ -10,10 +10,22 @@ export default async function AdminUsersPage() {
     redirect("/login");
   }
 
-  // We no longer query MongoDB directly from the frontend
-  // Instead, we would fetch from the backend. For this view, we'd need a backend endpoint for users.
-  // We'll mock the users here or you can implement the GET /api/users on Express.
-  const users: any[] = []; 
+  let users: any[] = [];
+  try {
+    const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:5000";
+    const res = await fetch(`${backendUrl}/api/users`, {
+      headers: {
+        Authorization: `Bearer ${session.user.token}`,
+      },
+      cache: "no-store",
+    });
+    
+    if (res.ok) {
+      users = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching users:", error);
+  }
 
   return (
     <div className="p-6">
@@ -23,7 +35,6 @@ export default async function AdminUsersPage() {
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <p className="text-sm text-muted-foreground mb-4">Note: User management moved to backend API.</p>
             <table className="w-full text-sm text-left">
               <thead className="text-xs uppercase bg-muted">
                 <tr>
