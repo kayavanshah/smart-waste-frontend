@@ -11,6 +11,9 @@ export default function LandingPage() {
           <span className="font-bold text-xl hidden sm:inline-block">SmartWaste</span>
         </Link>
         <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link href="/about">
+            <Button variant="ghost">About Us</Button>
+          </Link>
           <Link href="/login">
             <Button variant="ghost">Log In</Button>
           </Link>
