@@ -80,6 +80,11 @@ export default function AdminReportsPage() {
                 <div className="flex-1">
                   <p className="font-semibold">User: {report.user?.name || "Unknown"}</p>
                   <p className="text-sm text-muted-foreground">Location: {report.location.lat.toFixed(4)}, {report.location.lng.toFixed(4)}</p>
+                  {report.details && (
+                    <p className="text-sm text-muted-foreground mt-1">
+                      <span className="font-semibold">Details:</span> {report.details}
+                    </p>
+                  )}
                   <p className="text-sm text-muted-foreground mt-2">
                     <span className="font-semibold text-primary">AI Result:</span> {report.aiValidation?.isGarbage ? "Garbage Detected" : "Rejected"} ({report.aiValidation?.confidence}%)
                   </p>

@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Loader2, UploadCloud, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchWithAuth } from "@/lib/api";
 import dynamic from "next/dynamic";
@@ -20,6 +21,7 @@ export default function UploadReportPage() {
   const { data: session } = useSession();
   const [image, setImage] = useState<string | null>(null);
   const [location, setLocation] = useState<{ lat: number; lng: number, alt: number } | null>(null);
+  const [details, setDetails] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -77,6 +79,7 @@ export default function UploadReportPage() {
         body: JSON.stringify({
           imageBase64: image,
           location,
+          details,
         }),
       }, session?.user?.token);
 
@@ -158,6 +161,16 @@ export default function UploadReportPage() {
               />
             </div>
           )}
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium">Additional Details (Optional)</label>
+            <Input 
+              placeholder="e.g. 2nd floor, Basement, Near the stairs..." 
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
+              disabled={isLoading}
+            />
+          </div>
 
           <Button 
             className="w-full h-12 text-lg" 
