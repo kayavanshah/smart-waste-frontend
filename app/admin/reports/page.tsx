@@ -39,7 +39,7 @@ export default function AdminReportsPage() {
       
       if (res.ok) {
         toast.success("Status updated");
-        fetchReports();
+        setReports(prev => prev.map(r => r._id === id ? { ...r, status: newStatus } : r));
       } else {
         toast.error("Failed to update status");
       }
@@ -57,7 +57,7 @@ export default function AdminReportsPage() {
 
       if (res.ok) {
         toast.success("Report deleted");
-        fetchReports();
+        setReports(prev => prev.filter(r => r._id !== id));
       } else {
         toast.error("Failed to delete report");
       }
