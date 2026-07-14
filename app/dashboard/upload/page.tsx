@@ -56,7 +56,8 @@ export default function UploadReportPage() {
           console.error("Error getting location", error);
           toast.error("Failed to get location. Please enable permissions.");
           setIsLocating(false);
-        }
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
       );
     } else {
       toast.error("Geolocation is not supported by your browser");
