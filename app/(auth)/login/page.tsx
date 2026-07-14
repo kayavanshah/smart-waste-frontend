@@ -49,7 +49,7 @@ export default function LoginPage() {
       });
 
       if (res?.error) {
-        toast.error("Invalid email or password");
+        toast.error(res.error);
       } else {
         toast.success("Login successful!");
         
