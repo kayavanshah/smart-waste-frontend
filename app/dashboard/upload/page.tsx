@@ -148,8 +148,14 @@ export default function UploadReportPage() {
           </div>
 
           {location && (
-            <div className="w-full h-48 mt-4 rounded-lg overflow-hidden border relative z-10">
-              <MapPreview location={location} />
+            <div className="w-full h-48 mt-4 rounded-lg overflow-hidden border relative z-10 group">
+              <div className="absolute top-2 right-2 bg-background/90 text-xs px-2 py-1 rounded shadow z-[400] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                Drag the marker to adjust location
+              </div>
+              <MapPreview 
+                location={location} 
+                onLocationChange={(lat, lng) => setLocation(prev => prev ? { ...prev, lat, lng } : { lat, lng, alt: 0 })}
+              />
             </div>
           )}
 

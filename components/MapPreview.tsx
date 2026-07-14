@@ -16,6 +16,7 @@ const icon = L.icon({
 
 interface MapPreviewProps {
   location: { lat: number; lng: number };
+  onLocationChange?: (lat: number, lng: number) => void;
 }
 
 function RecenterMap({ location }: { location: { lat: number; lng: number } }) {
@@ -26,7 +27,7 @@ function RecenterMap({ location }: { location: { lat: number; lng: number } }) {
   return null;
 }
 
-export default function MapPreview({ location }: MapPreviewProps) {
+export default function MapPreview({ location, onLocationChange }: MapPreviewProps) {
   return (
     <MapContainer 
       center={[location.lat, location.lng]} 
@@ -37,7 +38,20 @@ export default function MapPreview({ location }: MapPreviewProps) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[location.lat, location.lng]} icon={icon} />
+      <Marker 
+        position={[location.lat, location.lng]} 
+        icon={icon} 
+        draggable={!!onLocationChange}
+        eventHandlers={{
+          dragend: (e) => {
+            const marker = e.target;
+            const position = marker.getLatLng();
+            if (onLocationChange) {
+              onLocationChange(position.lat, position.lng);
+            }
+          },
+        }}
+      />
       <RecenterMap location={location} />
     </MapContainer>
   );
