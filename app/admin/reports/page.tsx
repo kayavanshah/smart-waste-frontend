@@ -92,13 +92,13 @@ export default function AdminReportsPage() {
                 </div>
                 <div className="flex flex-col space-y-2 min-w-[150px]">
                   <select 
-                    className="border rounded p-2 text-sm"
+                    className="border rounded p-2 text-sm bg-background text-foreground"
                     value={report.status}
                     onChange={(e) => updateStatus(report._id, e.target.value)}
                   >
-                    <option value="Pending">Pending</option>
-                    <option value="In Progress">In Progress</option>
-                    <option value="Resolved">Resolved</option>
+                    <option className="bg-background text-foreground" value="Pending">Pending</option>
+                    <option className="bg-background text-foreground" value="In Progress">In Progress</option>
+                    <option className="bg-background text-foreground" value="Resolved">Resolved</option>
                   </select>
                   <Button 
                     variant="secondary" 
