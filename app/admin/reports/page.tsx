@@ -95,6 +95,13 @@ export default function AdminReportsPage() {
                     <option value="In Progress">In Progress</option>
                     <option value="Resolved">Resolved</option>
                   </select>
+                  <Button 
+                    variant="secondary" 
+                    size="sm" 
+                    onClick={() => window.open(`https://www.google.com/maps/dir/?api=1&destination=${report.location.lat},${report.location.lng}`, '_blank')}
+                  >
+                    Get Directions
+                  </Button>
                   <Button variant="destructive" size="sm" onClick={() => deleteReport(report._id)}>
                     Delete Fake Report
                   </Button>
