@@ -145,7 +145,7 @@ export default function UploadReportPage() {
             {location && (
               <span className="text-xs text-muted-foreground flex flex-col items-start gap-1 mt-1">
                 <span>Lat: {location.lat.toFixed(4)}, Lng: {location.lng.toFixed(4)}</span>
-                <span className="font-semibold text-primary">X: {location.lng.toFixed(4)}, Y: {location.lat.toFixed(4)}, Z: {location.alt.toFixed(4)}</span>
+                <span className="font-semibold text-primary">X: {location.lng.toFixed(4)}, Y: {location.lat.toFixed(4)}</span>
               </span>
             )}
           </div>
