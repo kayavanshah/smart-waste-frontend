@@ -10,6 +10,7 @@ import { fetchWithAuth } from "@/lib/api";
 export default function AdminReportsPage() {
   const { data: session } = useSession();
   const [reports, setReports] = useState<any[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const fetchReports = async () => {
     if (!session?.user?.token) return;
@@ -68,6 +69,20 @@ export default function AdminReportsPage() {
 
   return (
     <div className="p-6">
+      {/* Fullscreen Image Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 p-4 cursor-zoom-out backdrop-blur-sm"
+          onClick={() => setSelectedImage(null)}
+        >
+          <img 
+            src={selectedImage} 
+            alt="Zoomed Garbage" 
+            className="max-w-full max-h-full object-contain rounded-lg shadow-2xl" 
+          />
+        </div>
+      )}
+
       <Card>
         <CardHeader>
           <CardTitle>Manage Reports</CardTitle>
@@ -76,7 +91,13 @@ export default function AdminReportsPage() {
           <div className="space-y-6">
             {reports.map((report) => (
               <div key={report._id} className="flex flex-col md:flex-row items-start md:items-center space-y-4 md:space-y-0 md:space-x-6 border p-4 rounded-lg">
-                <img src={report.imageUrl} alt="Garbage" className="w-32 h-32 object-cover rounded-md" />
+                <img 
+                  src={report.imageUrl} 
+                  alt="Garbage" 
+                  className="w-32 h-32 object-cover rounded-md cursor-zoom-in hover:opacity-80 transition-opacity ring-2 ring-transparent hover:ring-primary" 
+                  onClick={() => setSelectedImage(report.imageUrl)}
+                  title="Click to zoom"
+                />
                 <div className="flex-1">
                   <p className="font-semibold">User: {report.user?.name || "Unknown"}</p>
                   <p className="text-sm text-muted-foreground">Location: {report.location.lat.toFixed(4)}, {report.location.lng.toFixed(4)}</p>
