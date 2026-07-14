@@ -19,7 +19,7 @@ export default function UploadReportPage() {
   const router = useRouter();
   const { data: session } = useSession();
   const [image, setImage] = useState<string | null>(null);
-  const [location, setLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [location, setLocation] = useState<{ lat: number; lng: number, alt: number } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -47,6 +47,7 @@ export default function UploadReportPage() {
           setLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
+            alt: position.coords.altitude || 0,
           });
           setIsLocating(false);
           toast.success("Location captured");
@@ -138,8 +139,9 @@ export default function UploadReportPage() {
               {location ? "Location Captured ✓" : "Capture Location"}
             </Button>
             {location && (
-              <span className="text-xs text-muted-foreground">
-                Lat: {location.lat.toFixed(4)}, Lng: {location.lng.toFixed(4)}
+              <span className="text-xs text-muted-foreground flex flex-col items-start gap-1 mt-1">
+                <span>Lat: {location.lat.toFixed(4)}, Lng: {location.lng.toFixed(4)}</span>
+                <span className="font-semibold text-primary">X: {location.lng.toFixed(4)}, Y: {location.lat.toFixed(4)}, Z: {location.alt.toFixed(4)}</span>
               </span>
             )}
           </div>
